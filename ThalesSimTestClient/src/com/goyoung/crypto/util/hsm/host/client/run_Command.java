@@ -1,4 +1,4 @@
-package android.demo.goyoung.com.hsm_demo;
+package com.goyoung.crypto.util.hsm.host.client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
