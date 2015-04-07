@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TestConsole {
+public class Test_Host_CMD {
 
 	public static String SendCommand(String s_Host, int i_Port, String s_command)
 			throws UnknownHostException, IOException {
