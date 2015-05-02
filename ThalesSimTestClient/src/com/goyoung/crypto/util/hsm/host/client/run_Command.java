@@ -6,11 +6,19 @@ import java.net.UnknownHostException;
 public class run_Command {
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		// TODO Auto-generated method stub
-		Test_Host_CMD.SendCommand("pki.gordonjyoung.com", 9998,"GJY*CAU1750CDFB0757D3B3994430636DBB281BUA787EF2F6595A8158EECE42B1170228912BFB87728013AD7610101234567812345");
-		//Test_Host_CMD.SendCommand("pki.gordonjyoung.com", 9998, "[AOECHO;AGVerify that comm lines are working;]");
-		// [AOECHO;AGVerify that comm lines are working;]
+	
+	//Generate BDK	
+	String result = Test_Host_CMD.SendCommand("pki.gordonjyoung.com", 9998,"----BI;;X");
+	//System.out.println("generate and wrap a key");
+	//String result = Test_Host_CMD.SendCommand("192.168.5.50", 1501,"----A00002U"); //generate a TPK/TMK/PVK
+	System.out.println(result);
+	
+	//Test_Host_CMD.SendCommand("pki.gordonjyoung.com", 7000, "<00#020035#0101##>");//send Atalla a command
+	//Generate TPK Component Test_Host_CMD.SendCommand("pki.gordonjyoung.com", 9998,"----A270DU");
+	//FutureX Exscrypt API send an Echo command
+	//Test_Host_CMD.SendCommand("pki.gordonjyoung.com", 9998, "[AOECHO;AGVerify that comm lines are working;]");
+		
 	}
-
 }
-//
+
+

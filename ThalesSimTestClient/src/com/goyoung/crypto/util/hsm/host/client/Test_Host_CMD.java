@@ -18,13 +18,12 @@ public class Test_Host_CMD {
 	public static String SendCommand(String s_Host, int i_Port, String s_command)
 			throws UnknownHostException, IOException {
 
-		String s_Command = SwitchCase(s_command);
-		String hexString = new String(Hex.encodeHex(s_Command.getBytes("UTF-8")));
-
 		Socket socket = new Socket(s_Host, i_Port);
 
-		byte[] ba_command = hexStringToByteArray(hexString);
+		//for Thales Listener, Hex encode bytes of string and store in new byte[] array:
+		byte[] ba_command = hexStringToByteArray(new String(Hex.encodeHex(s_command.getBytes("UTF-8"))));
 		byte[] s_command_len = length2byte(ba_command.length);
+		//Later we send hex encoded value of request string as binary bytes to the HSM
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		outputStream.write(s_command_len);
@@ -49,7 +48,7 @@ public class Test_Host_CMD {
 
 		String response = new String(responseBytes, "UTF-8");
 		socket.close();
-		System.out.println(response);
+		//System.out.println(response);
 		return response;
 	}
 

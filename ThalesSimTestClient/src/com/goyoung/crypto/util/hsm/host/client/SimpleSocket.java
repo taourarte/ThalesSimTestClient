@@ -1,6 +1,7 @@
 package com.goyoung.crypto.util.hsm.host.client;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,29 +17,34 @@ public class SimpleSocket {
 		// TODO Auto-generated method stub
 
 		//with SSL
-		SSLSocketFactory f = (SSLSocketFactory) SSLSocketFactory.getDefault();
-        SSLSocket clientSocket = (SSLSocket) f.createSocket("google.com", 443);
-        clientSocket.startHandshake();
+		//SSLSocketFactory f = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        //SSLSocket clientSocket = (SSLSocket) f.createSocket("10.236.82.166", 1500);
+        //clientSocket.startHandshake();
        
         //With Plain Text
-		// Socket clientSocket = new Socket("google.com", 80);
+		Socket clientSocket = new Socket("192.168.5.50", 1501);
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		
-		  outToServer.writeBytes("GET /" + '\n');
-		  
-				  System.out.println("FROM SERVER: " + inFromServer.readLine());
-		  String s_html;
-		  
-		  while((s_html=inFromServer.readLine())!= null){
-	            System.out.println(s_html);
-	            System.out.flush();
-	        }
-		  
-		  clientSocket.close();
+		//FutureX Excrypt API Commands:
+		outToServer.writeBytes("A00002X");
+			//	"//[AOECHO;AGVerify that comm lines are working;]\r\n");
 		
-		
-	}
+		DataInputStream in = new DataInputStream(clientSocket.getInputStream());
 
+		byte len1 = in.readByte();
+		byte len2 = in.readByte();
+		short responseLength = (short) (len1 << 8 | len2);
+
+		byte[] responseBytes = new byte[responseLength];
+		for (int i = 0; i < responseLength; i++) {
+			responseBytes[i] = in.readByte();
+		}
+
+		String response = new String(responseBytes, "UTF-8");
+		clientSocket.close();
+		
+		System.out.println(response);
+
+	}
 }
-//
+
